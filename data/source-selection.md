@@ -32,7 +32,7 @@ Do not concatenate volume across exchanges without harmonizing units, trading pa
 ## Provisional scope
 
 - BTCUSDT and ETHUSDT, spot, daily UTC.
-- Study window: **not yet fixed**. Choose after a coverage audit and supervisor approval; record the exact start/end dates and all gaps.
+- Study window: **2018-01-01 to 2025-12-31 inclusive**, with exclusive API end **2026-01-01**. Expect **2,922 daily bars per asset** if continuously covered; verify and record every gap.
 - Keep a source log: retrieval UTC timestamp, API base URL, endpoint/parameters, response checksum, symbols, data license, and observed missing bars.
 
 ## Data-quality checks
@@ -48,3 +48,7 @@ Do not concatenate volume across exchanges without harmonizing units, trading pa
 ## Public repository policy
 
 `data/raw/` is gitignored. Commit data dictionaries, retrieval scripts, provenance records and permitted small derived examples only. Never commit credentials or datasets whose terms forbid redistribution.
+
+## Coverage gate
+
+Run `python -m src.coverage --input data/raw/BTCUSDT.csv --symbol BTCUSDT --output results/coverage_btc.json` (repeat for ETHUSDT). An incomplete report blocks inference until gaps are investigated and documented. A complete report is necessary but not sufficient for data reliability.
