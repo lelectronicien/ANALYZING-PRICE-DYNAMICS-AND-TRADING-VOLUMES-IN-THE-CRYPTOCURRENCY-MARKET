@@ -50,3 +50,20 @@ The baseline uses an 80/20 chronological split. Features at t predict absolute r
 - Run tests and record their output.
 - Inspect plots, missingness, residuals, model assumptions and sensitivity.
 - Verify all results independently; never present unexecuted scripts as empirical findings.
+
+## Confirmed 2018–2025 full-window commands
+
+The earlier 2023–2024 examples are short smoke-test windows, **not** the thesis sample. For the full study period:
+
+```bash
+python -m src.fetch_ohlcv --symbol BTCUSDT --start 2018-01-01 --end 2026-01-01 --output data/raw/BTCUSDT.csv
+python -m src.fetch_ohlcv --symbol ETHUSDT --start 2018-01-01 --end 2026-01-01 --output data/raw/ETHUSDT.csv
+python -m src.coverage --input data/raw/BTCUSDT.csv --symbol BTCUSDT --output results/coverage_btc.json
+python -m src.coverage --input data/raw/ETHUSDT.csv --symbol ETHUSDT --output results/coverage_eth.json
+python -m src.walk_forward --input data/raw/BTCUSDT.csv --output-prefix results/btc_walk_forward --min-train 365 --step 1
+python -m src.walk_forward --input data/raw/ETHUSDT.csv --output-prefix results/eth_walk_forward --min-train 365 --step 1
+python -m src.robustness --input data/raw/BTCUSDT.csv --output results/btc_robustness.csv
+python -m src.robustness --input data/raw/ETHUSDT.csv --output results/eth_robustness.csv
+```
+
+**Important:** The coverage audit should pass before running inference. Data-source permissions, full historical availability, independent cross-checks and empirical outputs remain unverified. Expanding-window forecasting refits at each origin and may take substantial computation time.
