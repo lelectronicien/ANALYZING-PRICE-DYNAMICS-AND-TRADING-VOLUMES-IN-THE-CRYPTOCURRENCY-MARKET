@@ -4,9 +4,9 @@
 
 ## Phase A — Data acquisition and validation
 
-1. Select documented spot-market OHLCV data for BTC and ETH.
+1. Select documented spot-market OHLCV data for BTC and ETH covering **2018-01-01 to 2025-12-31 inclusive** (exclusive endpoint **2026-01-01**).
 2. Define exchange, quote currency, UTC daily boundaries, study period and licensing.
-3. Verify unique timestamps, continuity, positive prices, nonnegative volumes, and consistent units.
+3. Run `python -m src.coverage` for each asset: require 2,922 unique UTC-midnight daily timestamps, continuity, positive prices, nonnegative volumes, and consistent units.
 4. Log missing bars and exceptional observations; avoid silently forward-filling returns or volumes.
 5. Produce a data dictionary and a provenance record.
 
@@ -36,7 +36,7 @@ Preselect the main specification and outcomes before reviewing results where pra
 
 - Split data chronologically; never random-shuffle time-series observations.
 - Fit transformations and model parameters on training data only.
-- Use rolling/expanding windows for sensitivity; define forecast horizon explicitly.
+- Use expanding-window one-day-ahead forecasts from `src/walk_forward.py`; compare same-date benchmark and volume-augmented predictions. Add rolling fixed-width windows as a future sensitivity check.
 - Compare against a simple persistence or historical volatility benchmark.
 - Report errors, uncertainty and negative findings, not just significant results.
 
@@ -56,3 +56,7 @@ Preselect the main specification and outcomes before reviewing results where pra
 - `figures/`: plots for the thesis
 
 No empirical findings are claimed in this plan.
+
+## Implemented exploratory robustness
+
+Run `src/robustness.py` for two volatility proxies (absolute and squared returns), two volume measures (log turnover and its change), and full/2018–2021/2022–2025 subsamples. These are exploratory, multiple-comparison p-values are unadjusted, and conclusions must be independently verified.
