@@ -26,7 +26,7 @@ Directional return predictability is a separate, more demanding question and sho
 
 - **Assets (provisional):** Bitcoin (BTC) and Ethereum (ETH), with other liquid assets considered for robustness.
 - **Unit of observation:** Daily observations initially; intraday observations as an optional extension.
-- **Study window:** To be selected after evaluating consistent exchange coverage, structural breaks and data quality.
+- **Study window (confirmed):** 2018-01-01 through 2025-12-31 inclusive (2,922 UTC daily observations expected per continuously traded asset). Verify coverage and document gaps before analysis.
 - **Trading venue:** Use a documented exchange and consistent spot trading pairs (e.g., BTC/USDT, ETH/USDT), or a clearly defined aggregate provider; avoid mixing unlike volume definitions.
 - **Time convention:** Daily UTC bars with explicit open/close boundaries.
 - **Sampling:** Consecutive trading days, with transparent treatment of missing data, zero-volume records, delistings and exchange outages.
@@ -89,8 +89,12 @@ Observational analysis cannot identify causality without a defensible identifica
 
 1. Supervisor-approved research questions and hypotheses.
 2. Exact assets, trading pairs, exchanges/provider, volume unit and data access permissions.
-3. Study period, observation frequency and time aggregation.
+3. Study period and frequency confirmed: 2018–2025, daily UTC; verify data availability and daily boundaries.
 4. Main outcome and primary hypothesis to reduce specification searching.
 5. Software stack and expected deliverables.
 
 See [analysis plan](analysis-plan.md) for implementation and evaluation steps.
+
+## Confirmed temporal protocol
+
+See [2018–2025 empirical protocol](2018-2025-protocol.md) for the fixed sample window, coverage gate, expanding-window forecasts, and robustness grid.
